@@ -117,10 +117,10 @@ include "../checkSession.php";
                                         <a class="nav-link" href="editLetters.php">Bearbeiten</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="../pages/email-compose.html">Reaktionen</a>
+                                        <a class="nav-link" href="">Reaktionen</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="../pages/inbox.html">Lesen</a>
+                                        <a class="nav-link" href="readLetters.php">Lesen</a>
                                     </li>
                                 </ul>
                             </div>

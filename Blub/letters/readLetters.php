@@ -169,15 +169,28 @@ include "../../dbConnect.php";
                 <div class="email-inbox-header">
                     <div class="row">
                         <div class="col-lg-6">
-                            <div class="email-title"><span class="icon"><i class="fas fa-inbox"></i></span> Briefe <span class="new-messages">(2 new messages)</span> </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="email-search">
-                                <div class="input-group input-search">
-                                    <input class="form-control" type="text" placeholder="Search mail..."><span class="input-group-btn">
-                                       <button class="btn btn-secondary" type="button"><i class="fas fa-search"></i></button></span>
-                                </div>
-                            </div>
+                            <div class="email-title"><span class="icon"><i class="fas fa-inbox"></i></span> Briefe <span class="new-messages">
+
+                                    <?php
+
+                                    $sql = "SELECT * FROM `letters`";
+                                    $result = $conn->query($sql);
+
+                                    $i = 0;
+
+                                    if($result->num_rows>0) {
+                                        while ($row = $result->fetch_assoc()) {
+                                            if($row['readByTarget'] != 1) {
+                                                $i++;
+                                            }
+                                        }
+                                    }
+
+                                    echo $i." ungelesen";
+
+                                    ?>
+
+                                </span> </div>
                         </div>
                     </div>
                 </div>

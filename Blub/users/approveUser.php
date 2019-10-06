@@ -178,7 +178,7 @@ include "../checkSession.php";
 
                     if($result->num_rows>0) {
                         while ($row = $result->fetch_assoc()) {
-
+                            echo "Table";
                         }
                     } else {
                         echo "Keine Daten verfügbar";

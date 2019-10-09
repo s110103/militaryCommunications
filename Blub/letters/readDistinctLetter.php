@@ -199,7 +199,6 @@ if(!isset($_GET['id'])) {
                 </div>
             </div>
 
-            <form name="inventLetter" action="inventLetterBackend.php" method="post">
                 <div class="main-content container-fluid p-0">
                     <div class="email-head">
                         <div class="email-head-title">
@@ -235,7 +234,18 @@ if(!isset($_GET['id'])) {
                                 <div class="col-md-12 p-0">
                                     <div class="form-group">
                                         <label class="control-label sr-only" for="summernote">Reaktion </label>
-                                        <textarea class="form-control" id="summernote" name="reaction" rows="6" placeholder="Reaktion"></textarea>
+
+                                        <?php
+
+                                        if($row['reaction'] != null) {
+                                            $reaction = $row['reaction'];
+                                            echo "<textarea class='form-control' id='summernote' name='reaction' rows='6' placeholder='Reaktion'>".$reaction."</textarea>";
+                                        } else {
+                                            echo "<textarea class='form-control' id='summernote' name='reaction' rows='6' placeholder='Reaktion'></textarea>";
+                                        }
+
+                                        ?>
+
                                         <input type="hidden" name="id" value="<?php echo $id; ?>">
                                     </div>
                                 </div>
@@ -254,7 +264,6 @@ if(!isset($_GET['id'])) {
                         </div>
                     </div>
                 </div>
-            </form>
         </div>
         <!-- ============================================================== -->
         <!-- footer -->

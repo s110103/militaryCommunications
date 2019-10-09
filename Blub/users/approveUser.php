@@ -171,21 +171,31 @@ include "../checkSession.php";
             <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
-                    <?php
+                    <table>
+                        <tr>
+                            <th>Benutzer</th>
+                            <th colspan="2">Aktion</th>
+                        </tr>
 
-                    $sql = "SELECT * FROM `user` WHERE `approved`='0'";
-                    $result = $conn->query($sql);
+                        <?php
 
-                    if($result->num_rows>0) {
-                        while ($row = $result->fetch_assoc()) {
-                            echo "Table";
+                        $sql = "SELECT * FROM `user` WHERE `approved`='0'";
+                        $result = $conn->query($sql);
+
+                        if($result->num_rows>0) {
+                            while ($row = $result->fetch_assoc()) {
+                                echo "<tr>";
+                                echo "<td>".strtoupper($row['surname'])." ".$row['name']."</td>";
+                                echo "<td><a href='approveUserBackend.php?id=".$row['id']."'>Freigeben</a></td>";
+                                echo "<td><a href='removeUserBackend.php.php?id=".$row['id']."'>Löschen</a></td>";
+                                echo "</tr>";
+                            }
+                        } else {
+                            echo "Keine Daten verfügbar";
                         }
-                    } else {
-                        echo "Keine Daten verfügbar";
-                    }
 
-                    ?>
-
+                        ?>
+                    </table>
                 </div>
             </div>
         </div>

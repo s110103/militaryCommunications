@@ -11,12 +11,22 @@
     <link rel="stylesheet" href="../assets/libs/css/style.css">
     <link rel="stylesheet" href="../assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
     <link rel="stylesheet" href="../assets/vendor/fonts/material-design-iconic-font/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
+    <link rel="stylesheet" href="../assets/vendor/select2/css/select2.css">
+    <link rel="stylesheet" href="../assets/vendor/summernote/css/summernote-bs4.css">
+    <link rel="stylesheet" href="../assets/vendor/datepicker/tempusdominus-bootstrap-4.css" />
     <title>military Communications</title>
 </head>
 
 <?php
 include "../checkSession.php";
 include "../../dbConnect.php";
+
+if(!isset($_GET['id'])) {
+    header("Location: readLetters.php");
+} else {
+    $id = $_GET['id'];
+}
 ?>
 
 <body>
@@ -168,75 +178,83 @@ include "../../dbConnect.php";
                 <div class="email-inbox-header">
                     <div class="row">
                         <div class="col-lg-6">
-                            <div class="email-title"><span class="icon"><i class="fas fa-inbox"></i></span> Briefe <span class="new-messages">
 
-                                    <?php
+                            <?php
 
-                                    $sql = "SELECT * FROM `letters`";
-                                    $result = $conn->query($sql);
+                            $sql = "SELECT * FROM `letters` WHERE `id`='".$id."'";
+                            $result = $conn->query($sql);
 
-                                    $i = 0;
+                            if($result->num_rows>0) {
+                                $row = $result->fetch_assoc();
 
-                                    if($result->num_rows>0) {
-                                        while ($row = $result->fetch_assoc()) {
-                                            if($row['readByTarget'] != 1) {
-                                                $i++;
-                                            }
-                                        }
-                                    }
+                                echo "<div class='email-title'><span class='icon'><i class='fas fa-inbox'></i></span> Brief vom: ".$row['readableBy']." <span class='new-messages'></span></div>";
+                            } else {
+                                header("Location: readLetters.php");
+                            }
 
-                                    echo $i." ungelesen";
+                            ?>
 
-                                    ?>
-
-                                </span> </div>
                         </div>
                     </div>
                 </div>
-                <div class="email-list">
+            </div>
 
-                    <?php
+            <form name="inventLetter" action="inventLetterBackend.php" method="post">
+                <div class="main-content container-fluid p-0">
+                    <div class="email-head">
+                        <div class="email-head-title">
+                            <?php
+                            echo $row['title'];
+                            ?>
+                            <span class="icon mdi mdi-edit"></span></div>
+                    </div>
 
-                    $sql = "SELECT * FROM `letters`";
-                    $result = $conn->query($sql);
-
-                    if($result->num_rows>0) {
-                        while ($row = $result->fetch_assoc()) {
-                            if($row['readByTarget'] != 1) {
-                                echo "<div class='email-list-item email-list-item--unread'>";
-                                echo "<div class='email-list-actions'>";
-                                echo "</div>";
-                                echo "<div class='email-list-detail'><span class='date float-right'>";
-
-                                if($row['attachements'] != null) {
-                                    echo "<span class='icon'><i class='fas fa-paperclip'></i></span>";
-                                }
-
-                                echo $row['readableBy']."</span><span class='from'><a href='readDistinctLetter.php?id=".$row['id']."'>".$row['title']."</a></span>";
-                                echo "<p class='msg'><a href='readDistinctLetter.php?id=".$row['id']."'>".$row['rawText']."</a></p>";
-                                echo "</div>";
-                                echo "</div>";
-                            } else {
-                                echo "<div class='email-list-item'>";
-                                echo "<div class='email-list-actions'>";
-                                echo "</div>";
-                                echo "<div class='email-list-detail'><span class='date float-right'>";
-
-                                if($row['attachements'] != null) {
-                                    echo "<span class='icon'><i class='fas fa-paperclip'></i></span>";
-                                }
-
-                                echo $row['readableBy']."</span><span class='from'><a href='readDistinctLetter.php?id=".$row['id']."'>".$row['title']."</a></span>";
-                                echo "<p class='msg'><a href='readDistinctLetter.php?id=".$row['id']."'>".$row['rawText']."</a></p>";
-                                echo "</div>";
-                                echo "</div>";
+                    <div class="email-compose-fields">
+                        <?php
+                        if(isset($_GET['alert'])) {
+                            if($_GET['alert'] == "error") {
+                                echo "<div class='alert alert-danger' role='alert'>Fehler</div>";
+                            }
+                            if($_GET['alert'] == "success") {
+                                echo "<div class='alert alert-success' role='alert'>Gespeichert</div>";
                             }
                         }
-                    }
+                        ?>
+                    <div class="email editor">
+                        <div class="col-md-12 p-0">
+                            <div class="form-group">
+                                <?php
+                                echo $row['rawText'];
+                                ?>
+                            </div>
+                        </div>
+                        <div class="email action-send">
 
-                    ?>
+                            <form method="post" action="saveReaction.php">
+
+                                <div class="col-md-12 p-0">
+                                    <div class="form-group">
+                                        <label class="control-label sr-only" for="summernote">Reaktion </label>
+                                        <textarea class="form-control" id="summernote" name="reaction" rows="6" placeholder="Reaktion"></textarea>
+                                        <input type="hidden" name="id" value="<?php echo $id; ?>">
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-12 ">
+                                    <div class="form-group">
+                                        <button class="btn btn-primary btn-space" type="submit"><i class="icon s7-mail"></i> Gelesen</button>
+
+                                    </div>
+                                </div>
+
+                            </form>
+
+
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
         <!-- ============================================================== -->
         <!-- footer -->
@@ -263,6 +281,12 @@ include "../../dbConnect.php";
 <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
 <script src="../assets/vendor/slimscroll/jquery.slimscroll.js"></script>
 <script src="../assets/libs/js/main-js.js"></script>
+
+<script src="../assets/vendor/select2/js/select2.min.js"></script>
+<script src="../assets/vendor/summernote/js/summernote-bs4.js"></script>
+<script src="../assets/vendor/datepicker/moment.js"></script>
+<script src="../assets/vendor/datepicker/tempusdominus-bootstrap-4.js"></script>
+<script src="../assets/vendor/datepicker/datepicker.js"></script>
 <script>
     $(document).ready(function() {
 

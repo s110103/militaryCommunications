@@ -121,7 +121,7 @@ include "checkSession.php";
                                             <a class="nav-link" href="pages/email-compose.html">Reaktionen</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="pages/inbox.html">Lesen</a>
+                                            <a class="nav-link" href="letters/readLetters.php">Lesen</a>
                                         </li>
                                     </ul>
                                 </div>

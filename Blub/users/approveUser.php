@@ -17,6 +17,10 @@
 <?php
 include "../checkSession.php";
 include "../../dbConnect.php";
+
+if($_SESSION['permissions'] != 1) {
+    header("Location: ../index.php");
+}
 ?>
 
 <body>

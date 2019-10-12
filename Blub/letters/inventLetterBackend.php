@@ -11,6 +11,14 @@ $file = $_POST['file'];
 
 $writtenBy = $_SESSION['id'];
 
+if(strpos($readableByTime, 'PM') !== false) {
+    $secondPart = explode(':', $readableByTime)[1];
+    $readableByTime = explode(':', $readableByTime)[0]+12 . ":" . explode(' ', $secondPart)[0];
+} else {
+    $secondPart = explode(':', $readableByTime)[1];
+    $readableByTime = explode(':', $readableByTime)[0] . ":" . explode(' ', $secondPart)[0];
+}
+
 if($title != "") {
     if($file != null) {
         $sql = "INSERT INTO `letters` (`title`, `readableBy`, `readableByTime`, `rawText`, `attachements`, `writtenBy`) VALUES ('$title', '$readableBy', '$readableByTime', '$letter', '$file', '$writtenBy')";

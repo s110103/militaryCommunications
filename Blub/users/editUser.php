@@ -16,6 +16,10 @@
 
 <?php
 include "../checkSession.php";
+
+if($_SESSION['permissions'] != 1) {
+    header("Location: ../index.php");
+}
 ?>
 
 <body>

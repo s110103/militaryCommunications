@@ -231,34 +231,87 @@ include "../../dbConnect.php";
 
                     if ($result->num_rows > 0) {
                         while ($row = $result->fetch_assoc()) {
-                            if ($row['readByTarget'] != 1) {
-                                echo "<div class='email-list-item email-list-item--unread'>";
-                                echo "<div class='email-list-actions'>";
-                                echo "</div>";
-                                echo "<div class='email-list-detail'><span class='date float-right'>";
 
-                                if ($row['attachements'] != null) {
-                                    echo "<span class='icon'><i class='fas fa-paperclip'></i></span>";
+                            $readableBy = $row['readableBy'];
+                            $readableByTime = $row['readableByTime'];
+
+                            $timestamp = time();
+                            $datum = date("Y-m-d", $timestamp);
+                            $time = date("H:i", $timestamp);
+
+                            if(explode('-', $datum)[0] >= explode('-', $readableBy)[0]) {
+                                if(explode('-', $datum)[1] >= explode('-', $readableBy)[1]) {
+                                    if(explode('-', $datum)[2] >= explode('-', $readableBy)[2]) {
+
+                                        if(explode('-', $datum)[0] == explode('-', $readableBy)[0] && explode('-', $datum)[1] == explode('-', $readableBy)[1] && explode('-', $datum)[2] == explode('-', $readableBy)[2]) {
+
+                                            if(explode('-', $time)[0] >= explode('-', $readableByTime)[0]) {
+                                                if(explode('-', $time)[1] >= explode('-', $readableByTime)[1]) {
+                                                    if ($row['readByTarget'] != 1) {
+                                                        echo "<div class='email-list-item email-list-item--unread'>";
+                                                        echo "<div class='email-list-actions'>";
+                                                        echo "</div>";
+                                                        echo "<div class='email-list-detail'><span class='date float-right'>";
+
+                                                        if ($row['attachements'] != null) {
+                                                            echo "<span class='icon'><i class='fas fa-paperclip'></i></span>";
+                                                        }
+
+                                                        echo $row['readableBy'] . "</span><span class='from'><a href='readDistinctLetter.php?id=" . $row['id'] . "'>" . $row['title'] . "</a></span>";
+                                                        echo "<p class='msg'><a href='readDistinctLetter.php?id=" . $row['id'] . "'>" . $row['rawText'] . "</a></p>";
+                                                        echo "</div>";
+                                                        echo "</div>";
+                                                    } else {
+                                                        echo "<div class='email-list-item'>";
+                                                        echo "<div class='email-list-actions'>";
+                                                        echo "</div>";
+                                                        echo "<div class='email-list-detail'><span class='date float-right'>";
+
+                                                        if ($row['attachements'] != null) {
+                                                            echo "<span class='icon'><i class='fas fa-paperclip'></i></span>";
+                                                        }
+
+                                                        echo $row['readableBy'] . "</span><span class='from'><a href='readDistinctLetter.php?id=" . $row['id'] . "'>" . $row['title'] . "</a></span>";
+                                                        echo "<p class='msg'><a href='readDistinctLetter.php?id=" . $row['id'] . "'>" . $row['rawText'] . "</a></p>";
+                                                        echo "</div>";
+                                                        echo "</div>";
+                                                    }
+                                                }
+                                            }
+
+                                        } else {
+                                            if ($row['readByTarget'] != 1) {
+                                                echo "<div class='email-list-item email-list-item--unread'>";
+                                                echo "<div class='email-list-actions'>";
+                                                echo "</div>";
+                                                echo "<div class='email-list-detail'><span class='date float-right'>";
+
+                                                if ($row['attachements'] != null) {
+                                                    echo "<span class='icon'><i class='fas fa-paperclip'></i></span>";
+                                                }
+
+                                                echo $row['readableBy'] . "</span><span class='from'><a href='readDistinctLetter.php?id=" . $row['id'] . "'>" . $row['title'] . "</a></span>";
+                                                echo "<p class='msg'><a href='readDistinctLetter.php?id=" . $row['id'] . "'>" . $row['rawText'] . "</a></p>";
+                                                echo "</div>";
+                                                echo "</div>";
+                                            } else {
+                                                echo "<div class='email-list-item'>";
+                                                echo "<div class='email-list-actions'>";
+                                                echo "</div>";
+                                                echo "<div class='email-list-detail'><span class='date float-right'>";
+
+                                                if ($row['attachements'] != null) {
+                                                    echo "<span class='icon'><i class='fas fa-paperclip'></i></span>";
+                                                }
+
+                                                echo $row['readableBy'] . "</span><span class='from'><a href='readDistinctLetter.php?id=" . $row['id'] . "'>" . $row['title'] . "</a></span>";
+                                                echo "<p class='msg'><a href='readDistinctLetter.php?id=" . $row['id'] . "'>" . $row['rawText'] . "</a></p>";
+                                                echo "</div>";
+                                                echo "</div>";
+                                            }
+                                        }
+                                    }
                                 }
-
-                                echo $row['readableBy'] . "</span><span class='from'><a href='readDistinctLetter.php?id=" . $row['id'] . "'>" . $row['title'] . "</a></span>";
-                                echo "<p class='msg'><a href='readDistinctLetter.php?id=" . $row['id'] . "'>" . $row['rawText'] . "</a></p>";
-                                echo "</div>";
-                                echo "</div>";
-                            } else {
-                                echo "<div class='email-list-item'>";
-                                echo "<div class='email-list-actions'>";
-                                echo "</div>";
-                                echo "<div class='email-list-detail'><span class='date float-right'>";
-
-                                if ($row['attachements'] != null) {
-                                    echo "<span class='icon'><i class='fas fa-paperclip'></i></span>";
-                                }
-
-                                echo $row['readableBy'] . "</span><span class='from'><a href='readDistinctLetter.php?id=" . $row['id'] . "'>" . $row['title'] . "</a></span>";
-                                echo "<p class='msg'><a href='readDistinctLetter.php?id=" . $row['id'] . "'>" . $row['rawText'] . "</a></p>";
-                                echo "</div>";
-                                echo "</div>";
                             }
                         }
                     }

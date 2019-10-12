@@ -170,7 +170,7 @@ include "../checkSession.php";
 
             <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                    <form>
+                    <form method="post" action="registerUserBackend.php">
                         <?php
                         if(isset($_GET['alert'])) {
                             if($_GET['alert'] == "error") {

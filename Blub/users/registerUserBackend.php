@@ -18,13 +18,13 @@ if($username != "" && $name != "" && $surname != "" && $email != "" && $password
     if($passwordHash == $passwordConfirmHash) {
         $sql = "INSERT INTO `user` (`username`, `password`, `name`, `surname`, `email`, `approved`, `permissions`, `notifications`) VALUES ('$username', '$passwordHash', '$name', '$surname', '$email', '1', '$rank', '0')";
         if($conn->query($sql)) {
-            header("Location: sign-up.php?alert=success");
+            header("Location: registerUser.php?alert=success");
         } else {
-            header("Location: sign-up.php?alert=error");
+            header("Location: registerUser.php?alert=error");
         }
     } else {
-        header("Location: sign-up.php?alert=password");
+        header("Location: registerUser.php?alert=password");
     }
 } else {
-    header("Location: sign-up.php?alert=nodata");
+    header("Location: registerUser.php?alert=nodata");
 }

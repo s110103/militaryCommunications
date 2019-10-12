@@ -30,14 +30,17 @@ include "../../dbConnect.php";
     <div class="dashboard-header">
         <nav class="navbar navbar-expand-lg bg-white fixed-top">
             <a class="navbar-brand" href="../index.php">MCS</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse " id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto navbar-right-top">
 
                     <li class="nav-item dropdown notification">
-                        <a class="nav-link nav-icons" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-fw fa-bell"></i> <span class="indicator"></span></a>
+                        <a class="nav-link nav-icons" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false"><i class="fas fa-fw fa-bell"></i> <span
+                                    class="indicator"></span></a>
                         <ul class="dropdown-menu dropdown-menu-right notification-dropdown">
                             <li>
                                 <div class="notification-title"> Benachrichtigungen</div>
@@ -45,8 +48,12 @@ include "../../dbConnect.php";
                                     <div class="list-group">
                                         <a href="#" class="list-group-item list-group-item-action active">
                                             <div class="notification-info">
-                                                <div class="notification-list-user-img"><img src="../assets/images/avatar-2.jpg" alt="" class="user-avatar-md rounded-circle"></div>
-                                                <div class="notification-list-user-block"><span class="notification-list-user-name">Reaktion</span>Hallo, der Brief war ur cool
+                                                <div class="notification-list-user-img"><img
+                                                            src="../assets/images/avatar-2.jpg" alt=""
+                                                            class="user-avatar-md rounded-circle"></div>
+                                                <div class="notification-list-user-block"><span
+                                                            class="notification-list-user-name">Reaktion</span>Hallo,
+                                                    der Brief war ur cool
                                                     <div class="notification-date">2 min ago</div>
                                                 </div>
                                             </div>
@@ -55,21 +62,25 @@ include "../../dbConnect.php";
                                 </div>
                             </li>
                             <li>
-                                <div class="list-footer"> <a href="#">Zeige alle Benachrichtigungen</a></div>
+                                <div class="list-footer"><a href="#">Zeige alle Benachrichtigungen</a></div>
                             </li>
                         </ul>
                     </li>
 
                     <li class="nav-item dropdown nav-user">
-                        <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="../assets/images/avatar-1.jpg" alt="" class="user-avatar-md rounded-circle"></a>
-                        <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">
+                        <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false"><img src="../assets/images/avatar-1.jpg" alt=""
+                                                                           class="user-avatar-md rounded-circle"></a>
+                        <div class="dropdown-menu dropdown-menu-right nav-user-dropdown"
+                             aria-labelledby="navbarDropdownMenuLink2">
                             <div class="nav-user-info">
-                                <h5 class="mb-0 text-white nav-user-name"><?php echo $_SESSION['name']." ".$_SESSION['surname']?> </h5>
+                                <h5 class="mb-0 text-white nav-user-name"><?php echo $_SESSION['name'] . " " . $_SESSION['surname'] ?> </h5>
                                 <span class="status"></span><span class="ml-2">Online</span>
                             </div>
                             <a class="dropdown-item" href="../account.php"><i class="fas fa-user mr-2"></i>Konto</a>
                             <a class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>Einstellungen</a>
-                            <a class="dropdown-item" href="../logout.php"><i class="fas fa-power-off mr-2"></i>Logout</a>
+                            <a class="dropdown-item" href="../logout.php"><i
+                                        class="fas fa-power-off mr-2"></i>Logout</a>
                         </div>
                     </li>
                 </ul>
@@ -88,7 +99,8 @@ include "../../dbConnect.php";
             <nav class="navbar navbar-expand-lg navbar-light">
 
                 <a class="d-xl-none d-lg-none" href="#">Dashboard</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
@@ -97,7 +109,8 @@ include "../../dbConnect.php";
                             Menü
                         </li>
                         <li class="nav-item ">
-                            <a class="nav-link" href="../index.php" aria-expanded="false"><i class="fa fa-fw fa-user-circle"></i>Dashboard <span class="badge badge-success">6</span></a>
+                            <a class="nav-link" href="../index.php" aria-expanded="false"><i
+                                        class="fa fa-fw fa-user-circle"></i>Dashboard <span class="badge badge-success">6</span></a>
                         </li>
 
                         <li class="nav-divider">
@@ -105,7 +118,8 @@ include "../../dbConnect.php";
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1"><i class="fas fa-fw fa-inbox"></i>Briefe</a>
+                            <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
+                               data-target="#submenu-1" aria-controls="submenu-1"><i class="fas fa-fw fa-inbox"></i>Briefe</a>
                             <div id="submenu-1" class="collapse submenu" style="">
                                 <ul class="nav flex-column">
                                     <li class="nav-item">
@@ -124,18 +138,16 @@ include "../../dbConnect.php";
                             </div>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fas fa-users"></i>Benutzer</a>
+                        <li class="nav-item"><a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
+                                                data-target="#submenu-2" aria-controls="submenu-2"><i
+                                        class="fas fa-users"></i>Benutzer</a>
                             <div id="submenu-2" class="collapse submenu" style="">
                                 <ul class="nav flex-column">
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="../pages/inbox.html">Anlegen</a>
+                                    <li class="nav-item"><a class="nav-link" href="users/registerUser.php">Anlegen</a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="../pages/email-details.html">Bearbeiten</a>
+                                    <li class="nav-item"><a class="nav-link" href="users/editUser.php">Bearbeiten</a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="../pages/email-details.html">Freigeben</a>
+                                    <li class="nav-item"><a class="nav-link" href="users/approveUser.php">Freigeben</a>
                                     </li>
                                 </ul>
                             </div>
@@ -157,10 +169,13 @@ include "../../dbConnect.php";
             <aside class="page-aside">
                 <div class="aside-content">
                     <div class="aside-header">
-                        <button class="navbar-toggle" data-target=".aside-nav" data-toggle="collapse" type="button"><span class="icon"><i class="fas fa-caret-down"></i></span></button><span class="title">Brief Service</span>
+                        <button class="navbar-toggle" data-target=".aside-nav" data-toggle="collapse" type="button">
+                            <span class="icon"><i class="fas fa-caret-down"></i></span></button>
+                        <span class="title">Brief Service</span>
                         <p class="description">Erschaffe Liebe</p>
                     </div>
-                    <div class="aside-compose"><a class="btn btn-lg btn-secondary btn-block" href="#">Verfasse Brief</a></div>
+                    <div class="aside-compose"><a class="btn btn-lg btn-secondary btn-block" href="#">Verfasse Brief</a>
+                    </div>
                     <div class="aside-nav collapse">
                     </div>
                 </div>
@@ -169,13 +184,16 @@ include "../../dbConnect.php";
                 <div class="email-inbox-header">
                     <div class="row">
                         <div class="col-lg-6">
-                            <div class="email-title"><span class="icon"><i class="fas fa-inbox"></i></span> Briefe <span class="new-messages">(2 new messages)</span> </div>
+                            <div class="email-title"><span class="icon"><i class="fas fa-inbox"></i></span> Briefe <span
+                                        class="new-messages">(2 new messages)</span></div>
                         </div>
                         <div class="col-lg-6">
                             <div class="email-search">
                                 <div class="input-group input-search">
-                                    <input class="form-control" type="text" placeholder="Search mail..."><span class="input-group-btn">
-                                       <button class="btn btn-secondary" type="button"><i class="fas fa-search"></i></button></span>
+                                    <input class="form-control" type="text" placeholder="Search mail..."><span
+                                            class="input-group-btn">
+                                       <button class="btn btn-secondary" type="button"><i
+                                                   class="fas fa-search"></i></button></span>
                                 </div>
                             </div>
                         </div>
@@ -184,13 +202,17 @@ include "../../dbConnect.php";
                 <div class="email-filters">
                     <div class="email-filters-left">
                         <label class="custom-control custom-checkbox be-select-all">
-                            <input class="custom-control-input chk_all" type="checkbox" name="chk_all"><span class="custom-control-label"></span>
+                            <input class="custom-control-input chk_all" type="checkbox" name="chk_all"><span
+                                    class="custom-control-label"></span>
                         </label>
                         <div class="btn-group">
                             <button class="btn btn-light dropdown-toggle" data-toggle="dropdown" type="button">
                                 With selected <span class="caret"></span></button>
-                            <div class="dropdown-menu" role="menu"><a class="dropdown-item" href="#">Mark as rea</a><a class="dropdown-item" href="#">Mark as unread</a><a class="dropdown-item" href="#">Spam</a>
-                                <div class="dropdown-divider"></div><a class="dropdown-item" href="#">Delete</a>
+                            <div class="dropdown-menu" role="menu"><a class="dropdown-item" href="#">Mark as rea</a><a
+                                        class="dropdown-item" href="#">Mark as unread</a><a class="dropdown-item"
+                                                                                            href="#">Spam</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Delete</a>
                             </div>
                         </div>
                         <div class="btn-group">
@@ -199,9 +221,14 @@ include "../../dbConnect.php";
                             <button class="btn btn-light" type="button">Delete</button>
                         </div>
                         <div class="btn-group">
-                            <button class="btn btn-light dropdown-toggle" data-toggle="dropdown" type="button">Order by <span class="caret"></span></button>
-                            <div class="dropdown-menu dropdown-menu-right" role="menu"><a class="dropdown-item" href="#">Date</a><a class="dropdown-item" href="#">From</a><a class="dropdown-item" href="#">Subject</a>
-                                <div class="dropdown-divider"></div><a class="dropdown-item" href="#">Size</a>
+                            <button class="btn btn-light dropdown-toggle" data-toggle="dropdown" type="button">Order by
+                                <span class="caret"></span></button>
+                            <div class="dropdown-menu dropdown-menu-right" role="menu"><a class="dropdown-item"
+                                                                                          href="#">Date</a><a
+                                        class="dropdown-item" href="#">From</a><a class="dropdown-item"
+                                                                                  href="#">Subject</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Size</a>
                             </div>
                         </div>
                     </div>
@@ -219,24 +246,24 @@ include "../../dbConnect.php";
                     $sql = "SELECT * FROM `letters`";
                     $result = $conn->query($sql);
 
-                    if($result->num_rows>0) {
+                    if ($result->num_rows > 0) {
                         while ($row = $result->fetch_assoc()) {
-                            if($row['readByTarget'] != 1) {
+                            if ($row['readByTarget'] != 1) {
                                 echo "<div class='email-list-item email-list-item--unread'>";
                                 echo "<div class='email-list-actions'>";
-                                echo "<label class='custom-control custom-checkbox'><input class='custom-control-input checkboxes' type='checkbox' value='".$row['id']."' id='".$row['id']."'><span class='custom-control-label'></span></label>";
+                                echo "<label class='custom-control custom-checkbox'><input class='custom-control-input checkboxes' type='checkbox' value='" . $row['id'] . "' id='" . $row['id'] . "'><span class='custom-control-label'></span></label>";
                                 echo "</div>";
-                                echo "<div class='email-list-detail'><span class='date float-right'><span class='icon'><i class='fas fa-paperclip'></i></span>".$row['readableBy']."</span><span class='from'>".$row['title']."</span>";
-                                echo "<p class='msg'>".$row['rawText']."</p>";
+                                echo "<div class='email-list-detail'><span class='date float-right'><span class='icon'><i class='fas fa-paperclip'></i></span>" . $row['readableBy'] . "</span><span class='from'>" . $row['title'] . "</span>";
+                                echo "<p class='msg'>" . $row['rawText'] . "</p>";
                                 echo "</div>";
                                 echo "</div>";
                             } else {
                                 echo "<div class='email-list-item'>";
                                 echo "<div class='email-list-actions'>";
-                                echo "<label class='custom-control custom-checkbox'><input class='custom-control-input checkboxes' type='checkbox' value='".$row['id']."' id='".$row['id']."'><span class='custom-control-label'></span></label>";
+                                echo "<label class='custom-control custom-checkbox'><input class='custom-control-input checkboxes' type='checkbox' value='" . $row['id'] . "' id='" . $row['id'] . "'><span class='custom-control-label'></span></label>";
                                 echo "</div>";
-                                echo "<div class='email-list-detail'><span class='date float-right'><span class='icon'><i class='fas fa-paperclip'></i></span>".$row['readableBy']."</span><span class='from'>".$row['title']."</span>";
-                                echo "<p class='msg'>".$row['rawText']."</p>";
+                                echo "<div class='email-list-detail'><span class='date float-right'><span class='icon'><i class='fas fa-paperclip'></i></span>" . $row['readableBy'] . "</span><span class='from'>" . $row['title'] . "</span>";
+                                echo "<p class='msg'>" . $row['rawText'] . "</p>";
                                 echo "</div>";
                                 echo "</div>";
                             }
@@ -273,10 +300,10 @@ include "../../dbConnect.php";
 <script src="../assets/vendor/slimscroll/jquery.slimscroll.js"></script>
 <script src="../assets/libs/js/main-js.js"></script>
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
 
         // binding the check all box to onClick event
-        $(".chk_all").click(function() {
+        $(".chk_all").click(function () {
 
             var checkAll = $(".chk_all").prop('checked');
             if (checkAll) {
@@ -288,7 +315,7 @@ include "../../dbConnect.php";
         });
 
         // if all checkboxes are selected, then checked the main checkbox class and vise versa
-        $(".checkboxes").click(function() {
+        $(".checkboxes").click(function () {
 
             if ($(".checkboxes").length == $(".subscheked:checked").length) {
                 $(".chk_all").attr("checked", "checked");

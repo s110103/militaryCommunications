@@ -16,6 +16,7 @@
 
 <?php
 include "../checkSession.php";
+include "../../dbConnect.php";
 ?>
 
 <body>
@@ -159,7 +160,7 @@ include "../checkSession.php";
             <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="page-header">
-                        <h2 class="pageheader-title">Registriere einen neuen Benutzer </h2>
+                        <h2 class="pageheader-title"> Gebe Benutzer frei </h2>
                     </div>
                 </div>
             </div>
@@ -169,14 +170,17 @@ include "../checkSession.php";
 
 
             <div class="row">
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
 
-                    <table>
-                        <tr>
-                            <th>Benutzer</th>
-                            <th colspan="2">Aktion</th>
-                        </tr>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Benutzer</th>
+                                <th scope="col" colspan="2">Aktionen</th>
+                            </tr>
+                        </thead>
 
+                        <tbody>
                         <?php
 
                         $sql = "SELECT * FROM `user` WHERE `approved`='0'";
@@ -186,8 +190,8 @@ include "../checkSession.php";
                             while ($row = $result->fetch_assoc()) {
                                 echo "<tr>";
                                 echo "<td>".strtoupper($row['surname'])." ".$row['name']."</td>";
-                                echo "<td><a href='approveUserBackend.php?id=".$row['id']."'>Freigeben</a></td>";
-                                echo "<td><a href='removeUserBackend.php.php?id=".$row['id']."'>Löschen</a></td>";
+                                echo "<td><a href='approveUserBackend.php?id=".$row['id']."' class='btn btn-outline-primary'>Freigeben</a></td>";
+                                echo "<td><a href='removeUserBackend.php.php?id=".$row['id']."' class='btn btn-outline-danger'>Löschen</a></td>";
                                 echo "</tr>";
                             }
                         } else {
@@ -195,6 +199,7 @@ include "../checkSession.php";
                         }
 
                         ?>
+                        </tbody>
                     </table>
                 </div>
             </div>

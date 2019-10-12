@@ -107,15 +107,21 @@ include "../checkSession.php";
                             <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1"><i class="fas fa-fw fa-inbox"></i>Briefe</a>
                             <div id="submenu-1" class="collapse submenu" style="">
                                 <ul class="nav flex-column">
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="../letters/inventLetter.php">Verfassen</a>
+                                    <?php
+
+                                    if($_SESSION['permissions'] == 1) {
+                                        echo "<li class='nav-item'>
+                                        <a class='nav-link' href='../letters/inventLetter.php'>Verfassen</a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="../letters/editLetters.php">Bearbeiten</a>
+                                    <li class='nav-item'>
+                                        <a class='nav-link' href='../letters/editLetters.php'>Bearbeiten</a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#">Reaktionen</a>
-                                    </li>
+                                    <li class='nav-item'>
+                                        <a class='nav-link' href='#'>Reaktionen</a>
+                                    </li>";
+                                    }
+
+                                    ?>
                                     <li class="nav-item">
                                         <a class="nav-link" href="#">Lesen</a>
                                     </li>
@@ -123,22 +129,28 @@ include "../checkSession.php";
                             </div>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fas fa-users"></i>Benutzer</a>
-                            <div id="submenu-2" class="collapse submenu" style="">
-                                <ul class="nav flex-column">
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="registerUser.php">Anlegen</a>
+                        <?php
+                        if($_SESSION['permissions'] == 1) {
+                            echo "<li class='nav-item'>
+                            <a class='nav-link' href='#' data-toggle='collapse' aria-expanded='false'
+                               data-target='#submenu-2' aria-controls='submenu-2'><i
+                                        class='fas fa-users'></i>Benutzer</a>
+                            <div id='submenu-2' class='collapse submenu' style=''>
+                                <ul class='nav flex-column'>
+                                    <li class='nav-item'>
+                                        <a class='nav-link' href='registerUser.php'>Anlegen</a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="editUser.php">Bearbeiten</a>
+                                    <li class='nav-item'>
+                                        <a class='nav-link' href='editUser.php'>Bearbeiten</a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="approveUser.php">Freigeben</a>
+                                    <li class='nav-item'>
+                                        <a class='nav-link' href='approveUser.php'>Freigeben</a>
                                     </li>
                                 </ul>
                             </div>
-                        </li>
+                        </li>";
+                        }
+                        ?>
 
                     </ul>
                 </div>
@@ -159,7 +171,7 @@ include "../checkSession.php";
             <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="page-header">
-                        <h2 class="pageheader-title">Registriere einen neuen Benutzer </h2>
+                        <h2 class="pageheader-title">Bearbeite einen neuen Benutzer </h2>
                     </div>
                 </div>
             </div>

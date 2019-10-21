@@ -193,14 +193,8 @@ if($_SESSION['permissions'] != 1) {
                             if($_GET['alert'] == "error") {
                                 echo "<div class='alert alert-danger' role='alert'>Fehler</div>";
                             }
-                            if($_GET['alert'] == "password") {
-                                echo "<div class='alert alert-danger' role='alert'>Passwörter stimmen nicht überein</div>";
-                            }
-                            if($_GET['alert'] == "nodata") {
-                                echo "<div class='alert alert-danger' role='alert'>Nicht alle Felder ausgefüllt</div>";
-                            }
                             if($_GET['alert'] == "success") {
-                                echo "<div class='alert alert-success' role='alert'>Registrierung abgeschlossen</div>";
+                                echo "<div class='alert alert-success' role='alert'>Änderungen erfolgreich gespeichert</div>";
                             }
                         }
 

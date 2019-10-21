@@ -10,13 +10,27 @@
     <link href="../assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
     <link rel="stylesheet" href="../assets/libs/css/style.css">
     <link rel="stylesheet" href="../assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
+    <link rel="stylesheet" href="../assets/vendor/select2/css/select2.css">
+    <link rel="stylesheet" href="../assets/vendor/summernote/css/summernote-bs4.css">
     <link rel="stylesheet" href="../assets/vendor/fonts/material-design-iconic-font/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../assets/vendor/datepicker/tempusdominus-bootstrap-4.css"/>
     <title>military Communications</title>
 </head>
 
 <?php
 include "../checkSession.php";
 include "../../dbConnect.php";
+
+if ($_SESSION['permissions'] != 1) {
+    header("Location: ../index.php");
+}
+
+if (!isset($_GET['id'])) {
+    header("Location: editLetters.php");
+} else {
+    $id = $_GET['id'];
+}
+
 ?>
 
 <body>
@@ -124,7 +138,7 @@ include "../../dbConnect.php";
                                 <ul class="nav flex-column">
                                     <?php
 
-                                    if($_SESSION['permissions'] == 1) {
+                                    if ($_SESSION['permissions'] == 1) {
                                         echo "<li class='nav-item'>
                                         <a class='nav-link' href='../letters/inventLetter.php'>Verfassen</a>
                                     </li>
@@ -145,7 +159,7 @@ include "../../dbConnect.php";
                         </li>
 
                         <?php
-                        if($_SESSION['permissions'] == 1) {
+                        if ($_SESSION['permissions'] == 1) {
                             echo "<li class='nav-item'>
                             <a class='nav-link' href='#' data-toggle='collapse' aria-expanded='false'
                                data-target='#submenu-2' aria-controls='submenu-2'><i
@@ -186,165 +200,120 @@ include "../../dbConnect.php";
                         <button class="navbar-toggle" data-target=".aside-nav" data-toggle="collapse" type="button">
                             <span class="icon"><i class="fas fa-caret-down"></i></span></button>
                         <span class="title">Brief Service</span>
-                        <p class="description">Betrachte Liebe</p>
+                        <p class="description">Erschaffe Liebe</p>
+                    </div>
+                    <div class="aside-compose"><a class="btn btn-lg btn-secondary btn-block" href="#">Verfasse Brief</a>
                     </div>
                     <div class="aside-nav collapse">
                     </div>
                 </div>
             </aside>
-            <div class="main-content container-fluid p-0">
-                <div class="email-inbox-header">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="email-title"><span class="icon"><i class="fas fa-inbox"></i></span> Briefe <span
-                                        class="new-messages">
-
-                                    <?php
-
-                                    $sql = "SELECT * FROM `letters`";
-                                    $result = $conn->query($sql);
-
-                                    $i = 0;
-
-                                    if ($result->num_rows > 0) {
-                                        while ($row = $result->fetch_assoc()) {
-                                            if ($row['readByTarget'] != 1) {
-
-                                                $readableBy = $row['readableBy'];
-                                                $readableByTime = $row['readableByTime'];
-
-                                                $timestamp = time();
-                                                $datum = date("Y-m-d", $timestamp);
-                                                $time = date("H:i", $timestamp);
-
-                                                if(explode('-', $datum)[0] >= explode('-', $readableBy)[0]) {
-                                                    if (explode('-', $datum)[1] >= explode('-', $readableBy)[1]) {
-                                                        if (explode('-', $datum)[2] >= explode('-', $readableBy)[2]) {
-
-                                                            if (explode('-', $datum)[0] == explode('-', $readableBy)[0] && explode('-', $datum)[1] == explode('-', $readableBy)[1] && explode('-', $datum)[2] == explode('-', $readableBy)[2]) {
-                                                                if (explode('-', $time)[0] >= explode('-', $readableByTime)[0]) {
-                                                                    if (explode('-', $time)[1] >= explode('-', $readableByTime)[1]) {
-                                                                        $i++;
-                                                                    }
-                                                                }
-                                                            } else {
-                                                                $i++;
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-
-                                    echo $i . " ungelesen";
-
-                                    ?>
-
-                                </span></div>
+            <form name="inventLetter" action="inventLetterBackend.php" method="post">
+                <div class="main-content container-fluid p-0">
+                    <div class="email-head">
+                        <div class="email-head-title">Bearbeite einen Brief<span class="icon mdi mdi-edit"></span>
                         </div>
                     </div>
-                </div>
-                <div class="email-list">
+
 
                     <?php
 
-                    $sql = "SELECT * FROM `letters` ORDER BY `readableBy` DESC";
+                    echo "<div class='email-compose-fields'>";
+
+                    if (isset($_GET['alert'])) {
+                        if ($_GET['alert'] == "error") {
+                            echo "<div class='alert alert-danger' role='alert'>Fehler</div>";
+                        }
+                        if ($_GET['alert'] == "notitle") {
+                            echo "<div class='alert alert-danger' role='alert'>Du musst einen Titel angeben</div>";
+                        }
+                        if ($_GET['alert'] == "success") {
+                            echo "<div class='alert alert-success' role='alert'>Gespeichert</div>";
+                        }
+                    }
+                    ?>
+
+                    <?php
+
+                    $sql = "SELECT * FROM `letters` WHERE `id`='" . $id . "'";
                     $result = $conn->query($sql);
 
                     if ($result->num_rows > 0) {
                         while ($row = $result->fetch_assoc()) {
 
-                            $readableBy = $row['readableBy'];
-                            $readableByTime = $row['readableByTime'];
+                            echo "<div class='subject'>
+                            <div class='form-group row pt-2'>
+                                <label class='col-md-1 control-label'>Titel</label>
+                                <div class='col-md-11'>
+                                    <input class='form-control' type='text' name='title' value='" . $row['title'] . "'>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='date'>
+                            <div class='form-group row pt-2'>
+                                <label class='col-md-1 control-label'>Lesbar ab:</label>
+                                <div class='col-md-5'>
+                                    <div class='form-group'>
+                                        <div class='input-group date' id='datetimepicker4' data-target-input='nearest'>
+                                            <input type='text' class='form-control datetimepicker-input'
+                                                   name='readableByDate' data-target='#datetimepicker4' value='" . $row['readableBy'] . "'>
+                                            <div class='input-group-append' data-target='#datetimepicker4'
+                                                 data-toggle='datetimepicker'>
+                                                <div class='input-group-text'><i class='far fa-calendar-alt'></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <label class='col-md-1 control-label '>Uhrzeit:</label>
+                                <div class='col-md-5'>
+                                    <div class='form-group'>
+                                        <div class='input-group date' id='datetimepicker3' data-target-input='nearest'>
+                                            <input type='text' class='form-control datetimepicker-input'
+                                                   name='readableByTime' data-target='#datetimepicker3' value='" . $row['readableByTime'] . "'>
+                                            <div class='input-group-append' data-target='#datetimepicker3'
+                                                 data-toggle='datetimepicker'>
+                                                <div class='input-group-text'><i class='far fa-clock'></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='email editor'>
+                        <div class='col-md-12 p-0'>
+                            <div class='form-group'>
+                                <label class='control-label sr-only' for='summernote'>Descriptions </label>
+                                <textarea class='form-control' id='summernote' name='letter' rows='6'
+                                          placeholder='Write Descriptions'>" . $row['rawText'] . "</textarea>
+                            </div>
+                        </div>
+                        <div class='col-md-12 p-0'>
+                            <div class='form-group'>
+                                <input type='file' value='Auswählen' name='file' class='btn btn-primary' value='" . $row['attachements'] . "'>
+                            </div>
+                        </div>
+                        <div class='email action-send'>
+                            <div class='col-md-12 '>
+                                <div class='form-group'>
+                                    <button class='btn btn-primary btn-space' type='submit'><i class='icon s7-mail'></i>
+                                        Speichern
+                                    </button>
+                                    <a class='btn btn-secondary btn-space' href='inventLetter.php'><i
+                                            class='icon s7-close'></i> Verwerfen</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>";
 
-                            $timestamp = time();
-                            $datum = date("Y-m-d", $timestamp);
-                            $time = date("H:i", $timestamp);
-
-                            if(explode('-', $datum)[0] >= explode('-', $readableBy)[0]) {
-                                if(explode('-', $datum)[1] >= explode('-', $readableBy)[1]) {
-                                    if(explode('-', $datum)[2] >= explode('-', $readableBy)[2]) {
-
-                                        if(explode('-', $datum)[0] == explode('-', $readableBy)[0] && explode('-', $datum)[1] == explode('-', $readableBy)[1] && explode('-', $datum)[2] == explode('-', $readableBy)[2]) {
-
-                                            if(explode('-', $time)[0] >= explode('-', $readableByTime)[0]) {
-                                                if(explode('-', $time)[1] >= explode('-', $readableByTime)[1]) {
-                                                    if ($row['readByTarget'] != 1) {
-                                                        echo "<div class='email-list-item email-list-item--unread'>";
-                                                        echo "<div class='email-list-actions'>";
-                                                        echo "</div>";
-                                                        echo "<div class='email-list-detail'><span class='date float-right'>";
-
-                                                        if ($row['attachements'] != null) {
-                                                            echo "<span class='icon'><i class='fas fa-paperclip'></i></span>";
-                                                        }
-
-                                                        echo $row['readableBy'] . "</span><span class='from'><a href='readDistinctLetter.php?id=" . $row['id'] . "'>" . $row['title'] . "</a></span>";
-                                                        echo "<p class='msg'><a href='readDistinctLetter.php?id=" . $row['id'] . "'>" . $row['rawText'] . "</a></p>";
-                                                        echo "</div>";
-                                                        echo "</div>";
-                                                    } else {
-                                                        echo "<div class='email-list-item'>";
-                                                        echo "<div class='email-list-actions'>";
-                                                        echo "</div>";
-                                                        echo "<div class='email-list-detail'><span class='date float-right'>";
-
-                                                        if ($row['attachements'] != null) {
-                                                            echo "<span class='icon'><i class='fas fa-paperclip'></i></span>";
-                                                        }
-
-                                                        echo $row['readableBy'] . "</span><span class='from'><a href='readDistinctLetter.php?id=" . $row['id'] . "'>" . $row['title'] . "</a></span>";
-                                                        echo "<p class='msg'><a href='readDistinctLetter.php?id=" . $row['id'] . "'>" . $row['rawText'] . "</a></p>";
-                                                        echo "</div>";
-                                                        echo "</div>";
-                                                    }
-                                                }
-                                            }
-
-                                        } else {
-                                            if ($row['readByTarget'] != 1) {
-                                                echo "<div class='email-list-item email-list-item--unread'>";
-                                                echo "<div class='email-list-actions'>";
-                                                echo "</div>";
-                                                echo "<div class='email-list-detail'><span class='date float-right'>";
-
-                                                if ($row['attachements'] != null) {
-                                                    echo "<span class='icon'><i class='fas fa-paperclip'></i></span>";
-                                                }
-
-                                                echo $row['readableBy'] . "</span><span class='from'><a href='readDistinctLetter.php?id=" . $row['id'] . "'>" . $row['title'] . "</a></span>";
-                                                echo "<p class='msg'><a href='readDistinctLetter.php?id=" . $row['id'] . "'>" . $row['rawText'] . "</a></p>";
-                                                echo "</div>";
-                                                echo "</div>";
-                                            } else {
-                                                echo "<div class='email-list-item'>";
-                                                echo "<div class='email-list-actions'>";
-                                                echo "</div>";
-                                                echo "<div class='email-list-detail'><span class='date float-right'>";
-
-                                                if ($row['attachements'] != null) {
-                                                    echo "<span class='icon'><i class='fas fa-paperclip'></i></span>";
-                                                }
-
-                                                echo $row['readableBy'] . "</span><span class='from'><a href='readDistinctLetter.php?id=" . $row['id'] . "'>" . $row['title'] . "</a></span>";
-
-                                                //if(strlen($row['rawText']) >= )
-
-                                                echo "<p class='msg'><a href='readDistinctLetter.php?id=" . $row['id'] . "'>" . $row['rawText'] . "</a></p>";
-                                                echo "</div>";
-                                                echo "</div>";
-                                            }
-                                        }
-                                    }
-                                }
-                            }
                         }
+                    } else {
+                        header("Location: editLetters.php");
                     }
 
                     ?>
                 </div>
-            </div>
+            </form>
         </div>
         <!-- ============================================================== -->
         <!-- footer -->
@@ -370,33 +339,23 @@ include "../../dbConnect.php";
 <script src="../assets/vendor/jquery/jquery-3.3.1.min.js"></script>
 <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
 <script src="../assets/vendor/slimscroll/jquery.slimscroll.js"></script>
+<script src="../assets/vendor/select2/js/select2.min.js"></script>
+<script src="../assets/vendor/summernote/js/summernote-bs4.js"></script>
 <script src="../assets/libs/js/main-js.js"></script>
+<script src="../assets/vendor/datepicker/moment.js"></script>
+<script src="../assets/vendor/datepicker/tempusdominus-bootstrap-4.js"></script>
+<script src="../assets/vendor/datepicker/datepicker.js"></script>
 <script>
     $(document).ready(function () {
-
-        // binding the check all box to onClick event
-        $(".chk_all").click(function () {
-
-            var checkAll = $(".chk_all").prop('checked');
-            if (checkAll) {
-                $(".checkboxes").prop("checked", true);
-            } else {
-                $(".checkboxes").prop("checked", false);
-            }
+        $('.js-example-basic-multiple').select2({tags: true});
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $('#summernote').summernote({
+            height: 300
 
         });
-
-        // if all checkboxes are selected, then checked the main checkbox class and vise versa
-        $(".checkboxes").click(function () {
-
-            if ($(".checkboxes").length == $(".subscheked:checked").length) {
-                $(".chk_all").attr("checked", "checked");
-            } else {
-                $(".chk_all").removeAttr("checked");
-            }
-
-        });
-
     });
 </script>
 </body>

@@ -209,33 +209,49 @@ include "checkSession.php";
                 <div class="ecommerce-widget">
 
                     <div class="row">
-                        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h3 class="card-title">Spread love</h3>
-                                    <p class="card-text">Hier kannst du Liebe verbreiten</p>
-                                    <a href="letters/inventLetter.php" class="btn btn-primary">Briefe verfassen</a>
+                        
+                        <?php
+                        if($_SESSION['permissions'] == 1) {
+                            echo "<div class='col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12'>
+                            <div class='card'>
+                                <div class='card-body'>
+                                    <h3 class='card-title'>Spread love</h3>
+                                    <p class='card-text'>Hier kannst du Liebe verbreiten</p>
+                                    <a href='letters/inventLetter.php' class='btn btn-primary'>Briefe verfassen</a>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h3 class="card-title">Edit love</h3>
-                                    <p class="card-text">Hier kannst du Liebe bearbeiten</p>
-                                    <a href="letters/inventLetter.php" class="btn btn-primary">Briefe bearbeiten</a>
+                        <div class='col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12'>
+                            <div class='card'>
+                                <div class='card-body'>
+                                    <h3 class='card-title'>Edit love</h3>
+                                    <p class='card-text'>Hier kannst du Liebe bearbeiten</p>
+                                    <a href='letters/inventLetter.php' class='btn btn-primary'>Briefe bearbeiten</a>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h3 class="card-title">Check love</h3>
-                                    <p class="card-text">Hier kannst du Reaktionen und Lesestatistiken ansehen</p>
-                                    <a href="letters/inventLetter.php" class="btn btn-primary">Reaktionen</a>
+                        <div class='col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12'>
+                            <div class='card'>
+                                <div class='card-body'>
+                                    <h3 class='card-title'>Check love</h3>
+                                    <p class='card-text'>Hier kannst du Reaktionen und Lesestatistiken ansehen</p>
+                                    <a href='letters/inventLetter.php' class='btn btn-primary'>Reaktionen</a>
                                 </div>
                             </div>
-                        </div>
+                        </div>";
+                        } else {
+                            echo "<div class='col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12'>
+                            <div class='card'>
+                                <div class='card-body'>
+                                    <h3 class='card-title'>Read Love</h3>
+                                    <p class='card-text'>Hier kannst du Briefe lesen</p>
+                                    <a href='letters/readLetters.php' class='btn btn-primary'>Lesen</a>
+                                </div>
+                            </div>
+                        </div>";
+                        }
+                        
+                        ?>
                     </div>
                 </div>
             </div>

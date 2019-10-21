@@ -27,10 +27,6 @@ if (!isset($_GET['id'])) {
 } else {
     $id = $_GET['id'];
 }
-
-if($_SESSION['permissions'] != 1) {
-    header("Location: ../index.php");
-}
 ?>
 
 <body>

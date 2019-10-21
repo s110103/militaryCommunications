@@ -16,6 +16,7 @@
 
 <?php
 include "../checkSession.php";
+include "../../dbConnect.php";
 
 if($_SESSION['permissions'] != 1) {
     header("Location: ../index.php");
@@ -186,7 +187,7 @@ if($_SESSION['permissions'] != 1) {
 
             <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                    <form>
+
                         <?php
                         if(isset($_GET['alert'])) {
                             if($_GET['alert'] == "error") {
@@ -202,37 +203,71 @@ if($_SESSION['permissions'] != 1) {
                                 echo "<div class='alert alert-success' role='alert'>Registrierung abgeschlossen</div>";
                             }
                         }
+
+                        $sql = "SELECT * FROM `user`";
+                        $result = $conn->query($sql);
+
+                        if($result->num_rows>0) {
+
+                            echo "<form method='get' action='editUser.php'><div class='form-group'><select class='form-control' name='id'>";
+
+                            while ($row = $result->fetch_assoc()) {
+                                echo "<option value='".$row['id']."'>".strtoupper($row['surname'])." ".$row['name']."</option>";
+                            }
+
+                            echo "</select></div>";
+
+                            echo "<input type='submit' class='btn btn-primary' value='Bearbeiten'></form>";
+                        } else {
+                            echo "-";
+                        }
+
                         ?>
-                        <div class="card-body">
-                            <div class="form-group">
-                                <input class="form-control form-control-lg" type="text" name="username" required="" placeholder="Benutzername" autocomplete="off">
+
+                    <hr>
+
+                    <?php
+
+                    if(isset($_GET['id'])) {
+
+                        $sql = "SELECT * FROM `user` WHERE `id`='". $_GET['id'] ."'";
+                        $result = $conn->query($sql);
+
+                        while ($row = $result->fetch_assoc()) {
+                            echo "<form method='post' action='editUserBackend.php'><div class='card-body'>";
+                            echo "<input type='hidden' name='id' value='".$row['id']."'>";
+                            echo "<div class='form-group'><input class='form-control form-control-lg' type='text' name='username' required='' placeholder='Benutzername' autocomplete='off' value='".$row['username']."'></div>";
+                            echo "<div class='form-group'><input class='form-control form-control-lg' type='text' name='username' required='' placeholder='Vorname' autocomplete='off' value='".$row['name']."'></div>";
+                            echo "<div class='form-group'><input class='form-control form-control-lg' type='text' name='username' required='' placeholder='Name' autocomplete='off' value='".$row['surname']."'></div>";
+                            echo "<div class='form-group'><input class='form-control form-control-lg' type='email' name='username' required='' placeholder='E-Mail' autocomplete='off' value='".$row['email']."'></div>";
+                            echo "<div class='form-group'>
+                                <select class='custom-select d-block w-100' name='permissions'>";
+                                if($row['permissions'] == 1) {
+                                    echo "<option value='0'>Leser</option>
+                                    <option value='1' selected>Administrator</option>";
+                                } else {
+                                    echo "<option value='0'>Leser</option>
+                                    <option value='1' selected>Administrator</option>";
+                                }
+                            echo "</select>
+                            </div>";
+                            
+                            echo "<div class='form-group pt-2'>
+                                <input  class='btn btn-block btn-primary' type='submit' value='Speichern'>
                             </div>
-                            <div class="form-group">
-                                <input class="form-control form-control-lg" type="text" name="name" required="" placeholder="Vorname" autocomplete="off">
-                            </div>
-                            <div class="form-group">
-                                <input class="form-control form-control-lg" type="text" name="surname" required="" placeholder="Nachname" autocomplete="off">
-                            </div>
-                            <div class="form-group">
-                                <input class="form-control form-control-lg" type="email" name="email" required="" placeholder="E-mail" autocomplete="off">
-                            </div>
-                            <div class="form-group">
-                                <input class="form-control form-control-lg" id="pass1" name="password" type="password" required="" placeholder="Passwort">
-                            </div>
-                            <div class="form-group">
-                                <input class="form-control form-control-lg" required="" type="password" name="passwordConfirm" placeholder="Bestätigen">
-                            </div>
-                            <div class="form-group">
-                                <select class="custom-select d-block w-100" name="rank">
-                                    <option value="0">Leser</option>
-                                    <option value="1">Administrator</option>
-                                </select>
-                            </div>
-                            <div class="form-group pt-2">
-                                <button class="btn btn-block btn-primary" type="submit">Registrieren</button>
-                            </div>
-                        </div>
-                    </form>
+                            <div class='form-group pt-2'>
+                                <a href='removeUserBackendFromEdit.php?id=".$_GET['id']."' class='btn btn-block btn-danger'>Löschen</a>
+                            </div>";
+                            
+                            echo "</div></form>";
+                        }
+
+                    } else {
+                        echo "Kein Benutzer ausgewählt";
+                    }
+
+
+                    ?>
                 </div>
             </div>
         </div>

@@ -273,6 +273,10 @@ if($_SESSION['permissions'] != 1) {
                             <div class="form-group">
                                 <input type="file" value="Auswählen" name="file" class="btn btn-primary">
                             </div>
+                            <!--<div class="custom-file mb-3">
+                                <input type="file" class="custom-file-input" id="customFile">
+                                <label class="custom-file-label" for="customFile">File Input</label>
+                            </div>-->
                         </div>
                         <div class="email action-send">
                             <div class="col-md-12 ">

@@ -3,6 +3,10 @@
 include "../../dbConnect.php";
 include "../checkSession.php";
 
+if($_SESSION['permissions'] != 1) {
+    header("Location: ../index.php");
+}
+
 $username = $_POST['username'];
 $name = $_POST['name'];
 $surname = $_POST['surname'];

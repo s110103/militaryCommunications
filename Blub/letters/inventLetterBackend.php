@@ -3,6 +3,10 @@
 include "../../dbConnect.php";
 include "../checkSession.php";
 
+if($_SESSION['permissions'] != 1) {
+    header("Location: ../index.php");
+}
+
 $title = $_POST['title'];
 $readableBy = $_POST['readableByDate'];
 $readableByTime = $_POST['readableByTime'];

@@ -208,7 +208,7 @@ if (!isset($_GET['id'])) {
                     </div>
                 </div>
             </aside>
-            <form name="inventLetter" action="inventLetterBackend.php" method="post">
+            <form name="editDistinctLetter" action="editDistinctLetterBackend.php" method="post">
                 <div class="main-content container-fluid p-0">
                     <div class="email-head">
                         <div class="email-head-title">Bearbeite einen Brief<span class="icon mdi mdi-edit"></span>
@@ -241,7 +241,8 @@ if (!isset($_GET['id'])) {
                     if ($result->num_rows > 0) {
                         while ($row = $result->fetch_assoc()) {
 
-                            echo "<div class='subject'>
+                            echo "<input type='hidden' name='id' value='".$row['id']."'>
+                            <div class='subject'>
                             <div class='form-group row pt-2'>
                                 <label class='col-md-1 control-label'>Titel</label>
                                 <div class='col-md-11'>

@@ -235,7 +235,7 @@ include "checkSession.php";
                                 <div class='card-body'>
                                     <h3 class='card-title'>Check love</h3>
                                     <p class='card-text'>Hier kannst du Reaktionen und Lesestatistiken ansehen</p>
-                                    <a href='letters/inventLetter.php' class='btn btn-primary'>Reaktionen</a>
+                                    <a href='letters/checkReactions.php' class='btn btn-primary'>Reaktionen</a>
                                 </div>
                             </div>
                         </div>";

@@ -136,7 +136,7 @@ if($_SESSION['permissions'] != 1) {
                                         <a class='nav-link' href='../letters/editLetters.php'>Bearbeiten</a>
                                     </li>
                                     <li class='nav-item'>
-                                        <a class='nav-link' href='#'>Reaktionen</a>
+                                        <a class='nav-link' href='checkReactions.php'>Reaktionen</a>
                                     </li>";
                                     }
 

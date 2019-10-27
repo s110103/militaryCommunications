@@ -84,7 +84,7 @@ if($_SESSION['permissions'] != 1) {
                                 <span class="status"></span><span class="ml-2">Online</span>
                             </div>
                             <a class="dropdown-item" href="../account.php"><i class="fas fa-user mr-2"></i>Konto</a>
-                            <a class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>Einstellungen</a>
+
                             <a class="dropdown-item" href="../logout.php"><i
                                         class="fas fa-power-off mr-2"></i>Logout</a>
                         </div>
@@ -200,7 +200,7 @@ if($_SESSION['permissions'] != 1) {
                     </div>
                 </div>
             </aside>
-            <form name="inventLetter" action="inventLetterBackend.php" method="post">
+            <form name="inventLetter" id="inventLetter" action="inventLetterBackend.php" method="post">
                 <div class="main-content container-fluid p-0">
                     <div class="email-head">
                         <div class="email-head-title">Verfasse einen neuen Brief<span class="icon mdi mdi-edit"></span>
@@ -266,17 +266,14 @@ if($_SESSION['permissions'] != 1) {
                             <div class="form-group">
                                 <label class="control-label sr-only" for="summernote">Descriptions </label>
                                 <textarea class="form-control" id="summernote" name="letter" rows="6"
-                                          placeholder="Write Descriptions"></textarea>
+                                          placeholder="Write Letter" onkeypress="countWords()"></textarea>
+                                <span id="wordcount"></span>
                             </div>
                         </div>
                         <div class="col-md-12 p-0">
                             <div class="form-group">
                                 <input type="file" value="Auswählen" name="file" class="btn btn-primary">
                             </div>
-                            <!--<div class="custom-file mb-3">
-                                <input type="file" class="custom-file-input" id="customFile">
-                                <label class="custom-file-label" for="customFile">File Input</label>
-                            </div>-->
                         </div>
                         <div class="email action-send">
                             <div class="col-md-12 ">
@@ -335,6 +332,15 @@ if($_SESSION['permissions'] != 1) {
 
         });
     });
+</script>
+<script>
+    function countWords(){
+        s = document.getElementById("summernote").value;
+        s = s.replace(/(^\s*)|(\s*$)/gi,"");
+        s = s.replace(/[ ]{2,}/gi," ");
+        s = s.replace(/\n /,"\n");
+        document.getElementById("wordcount").value = s.split(' ').length;
+    }
 </script>
 </body>
 

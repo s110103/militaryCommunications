@@ -66,7 +66,7 @@ include "checkSession.php";
                                 <span class="status"></span><span class="ml-2">Online</span>
                             </div>
                             <a class="dropdown-item" href="account.php"><i class="fas fa-user mr-2"></i>Konto</a>
-                            <a class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>Einstellungen</a>
+
                             <a class="dropdown-item" href="logout.php"><i class="fas fa-power-off mr-2"></i>Logout</a>
                         </div>
                     </li>
@@ -163,7 +163,23 @@ include "checkSession.php";
                     <div class="card">
                         <h5 class="card-header">Bearbeite deine Daten</h5>
                         <div class="card-body">
-                            <form class="needs-validation" novalidate>
+                            <?php
+                            if(isset($_GET['alert'])) {
+                                if($_GET['alert'] == "error") {
+                                    echo "<div class='alert alert-danger' role='alert'>Speichern fehlgeschlagen</div>";
+                                }
+                                if($_GET['alert'] == "wrongpass") {
+                                    echo "<div class='alert alert-danger' role='alert'>Falsches Passwort</div>";
+                                }
+                                if($_GET['alert'] == "nomatch") {
+                                    echo "<div class='alert alert-danger' role='alert'>Passwörter stimmen nicht überein</div>";
+                                }
+                                if($_GET['alert'] == "success") {
+                                    echo "<div class='alert alert-success' role='alert'>Speichern erfolgreich</div>";
+                                }
+                            }
+                            ?>
+                            <form class="needs-validation" novalidate name="changeAccount" method="post" action="accountSave.php">
                                 <div class="row">
                                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
                                         <label for="validationCustom01">Vorname</label>
@@ -210,7 +226,7 @@ include "checkSession.php";
                                 </div>
                             </form>
 
-                            <form>
+                            <form name="changePassword" method="post" action="accountChangePassword.php">
                                 <div class="form-row">&nbsp;</div>
 
                                 <div class="form-row">

@@ -230,6 +230,10 @@ include "../../dbConnect.php";
                                                             } else {
                                                                 $i++;
                                                             }
+                                                        } else {
+                                                            if(explode('-', $datum)[1] >= explode('-', $readableBy)[1]) {
+                                                                $i++;
+                                                            }
                                                         }
                                                     }
                                                 }
@@ -261,6 +265,11 @@ include "../../dbConnect.php";
                             $timestamp = time();
                             $datum = date("Y-m-d", $timestamp);
                             $time = date("H:i", $timestamp);
+
+                            /*if(explode('-', $datum)[1] >= explode('-', $readableBy)[1]) {
+                                echo "<h4>".explode('-', $datum)[1] ."|". explode('-', $readableBy)[1]."</h4>";
+                            }*/
+
 
                             if(explode('-', $datum)[0] >= explode('-', $readableBy)[0]) {
                                 if(explode('-', $datum)[1] >= explode('-', $readableBy)[1]) {
@@ -303,6 +312,41 @@ include "../../dbConnect.php";
                                             }
 
                                         } else {
+                                            if ($row['readByTarget'] != 1) {
+                                                echo "<div class='email-list-item email-list-item--unread'>";
+                                                echo "<div class='email-list-actions'>";
+                                                echo "</div>";
+                                                echo "<div class='email-list-detail'><span class='date float-right'>";
+
+                                                if ($row['attachements'] != null) {
+                                                    echo "<span class='icon'><i class='fas fa-paperclip'></i></span>";
+                                                }
+
+                                                echo $row['readableBy'] . "</span><span class='from'><a href='readDistinctLetter.php?id=" . $row['id'] . "'>" . $row['title'] . "</a></span>";
+                                                echo "<p class='msg'><a href='readDistinctLetter.php?id=" . $row['id'] . "'>" . $row['rawText'] . "</a></p>";
+                                                echo "</div>";
+                                                echo "</div>";
+                                            } else {
+                                                echo "<div class='email-list-item'>";
+                                                echo "<div class='email-list-actions'>";
+                                                echo "</div>";
+                                                echo "<div class='email-list-detail'><span class='date float-right'>";
+
+                                                if ($row['attachements'] != null) {
+                                                    echo "<span class='icon'><i class='fas fa-paperclip'></i></span>";
+                                                }
+
+                                                echo $row['readableBy'] . "</span><span class='from'><a href='readDistinctLetter.php?id=" . $row['id'] . "'>" . $row['title'] . "</a></span>";
+
+                                                //if(strlen($row['rawText']) >= )
+
+                                                echo "<p class='msg'><a href='readDistinctLetter.php?id=" . $row['id'] . "'>" . $row['rawText'] . "</a></p>";
+                                                echo "</div>";
+                                                echo "</div>";
+                                            }
+                                        }
+                                    } else {
+                                        if(explode('-', $datum)[1] >= explode('-', $readableBy)[1]) {
                                             if ($row['readByTarget'] != 1) {
                                                 echo "<div class='email-list-item email-list-item--unread'>";
                                                 echo "<div class='email-list-actions'>";

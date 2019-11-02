@@ -37,36 +37,6 @@ include "../../dbConnect.php";
             <div class="collapse navbar-collapse " id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto navbar-right-top">
 
-                    <li class="nav-item dropdown notification">
-                        <a class="nav-link nav-icons" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="false"><i class="fas fa-fw fa-bell"></i> <span
-                                    class="indicator"></span></a>
-                        <ul class="dropdown-menu dropdown-menu-right notification-dropdown">
-                            <li>
-                                <div class="notification-title"> Benachrichtigungen</div>
-                                <div class="notification-list">
-                                    <div class="list-group">
-                                        <a href="#" class="list-group-item list-group-item-action active">
-                                            <div class="notification-info">
-                                                <div class="notification-list-user-img"><img
-                                                            src="../assets/images/avatar-2.jpg" alt=""
-                                                            class="user-avatar-md rounded-circle"></div>
-                                                <div class="notification-list-user-block"><span
-                                                            class="notification-list-user-name">Reaktion</span>Hallo,
-                                                    der Brief war ur cool
-                                                    <div class="notification-date">2 min ago</div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="list-footer"><a href="#">Zeige alle Benachrichtigungen</a></div>
-                            </li>
-                        </ul>
-                    </li>
-
                     <li class="nav-item dropdown nav-user">
                         <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown"
                            aria-haspopup="true" aria-expanded="false"><img src="../assets/images/avatar-1.jpg" alt=""
@@ -235,6 +205,10 @@ include "../../dbConnect.php";
                                                                 $i++;
                                                             }
                                                         }
+                                                    } else {
+                                                        if(explode('-', $datum)[0] >= explode('-', $readableBy)[0]) {
+                                                            $i++;
+                                                        }
                                                     }
                                                 }
                                             }
@@ -379,6 +353,41 @@ include "../../dbConnect.php";
                                                 echo "</div>";
                                                 echo "</div>";
                                             }
+                                        }
+                                    }
+                                } else {
+                                    if(explode('-', $datum)[0] >= explode('-', $readableBy)[0]) {
+                                        if ($row['readByTarget'] != 1) {
+                                            echo "<div class='email-list-item email-list-item--unread'>";
+                                            echo "<div class='email-list-actions'>";
+                                            echo "</div>";
+                                            echo "<div class='email-list-detail'><span class='date float-right'>";
+
+                                            if ($row['attachements'] != null) {
+                                                echo "<span class='icon'><i class='fas fa-paperclip'></i></span>";
+                                            }
+
+                                            echo $row['readableBy'] . "</span><span class='from'><a href='readDistinctLetter.php?id=" . $row['id'] . "'>" . $row['title'] . "</a></span>";
+                                            echo "<p class='msg'><a href='readDistinctLetter.php?id=" . $row['id'] . "'>" . $row['rawText'] . "</a></p>";
+                                            echo "</div>";
+                                            echo "</div>";
+                                        } else {
+                                            echo "<div class='email-list-item'>";
+                                            echo "<div class='email-list-actions'>";
+                                            echo "</div>";
+                                            echo "<div class='email-list-detail'><span class='date float-right'>";
+
+                                            if ($row['attachements'] != null) {
+                                                echo "<span class='icon'><i class='fas fa-paperclip'></i></span>";
+                                            }
+
+                                            echo $row['readableBy'] . "</span><span class='from'><a href='readDistinctLetter.php?id=" . $row['id'] . "'>" . $row['title'] . "</a></span>";
+
+                                            //if(strlen($row['rawText']) >= )
+
+                                            echo "<p class='msg'><a href='readDistinctLetter.php?id=" . $row['id'] . "'>" . $row['rawText'] . "</a></p>";
+                                            echo "</div>";
+                                            echo "</div>";
                                         }
                                     }
                                 }
